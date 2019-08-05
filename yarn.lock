@@ -1318,11 +1318,6 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/gun@^0.9.1":
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/@types/gun/-/gun-0.9.1.tgz#00ce80f50305e9583f807e750275547aaeb4737d"
-  integrity sha512-frQF4+FbyG70MhfNmY3jPhXA5nRA+145B5QcXk2mo+n3qpxLhO28YEET/gjH0lxxqQQrHPKjLMt1yEtaIErtgw==
-
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"

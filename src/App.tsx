@@ -3,6 +3,7 @@ import gun from './data';
 import bind from 'react-gun';
 import * as helpers from './helpers/gun';
 
+
 (window as any).print = (s: any) => console.log(s);
 
 interface ReactGunBindProps {
@@ -15,7 +16,7 @@ type ChainReference = typeof gun;
 Object.entries(helpers).forEach(([key, value]: [string, any]) => { (window as any)[key] = value });
 
 const increment = (node: ChainReference) => (
-    () => (node.once as any)((val: number = 0) => (node.put as any)(val + 1))
+    () => node.once((val: any = 0) => node.put(val + 1))
 );
 
 const Main: React.FC<ReactGunBindProps> = ({ gun: { counter = 0, _root } }) => (
@@ -25,4 +26,4 @@ const Main: React.FC<ReactGunBindProps> = ({ gun: { counter = 0, _root } }) => (
     </p>
 );
 
-export default (bind as any)((gun.get as any)('counter/1'))(Main);
+export default bind(gun.get('counter/1'))(Main);
