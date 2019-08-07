@@ -1,4 +1,4 @@
-import Gun from 'gun/gun';
+import Gun from 'gun';
 import 'gun/lib/open';
 import 'gun/lib/load';
 import 'gun/lib/unset';

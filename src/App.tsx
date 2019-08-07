@@ -1,15 +1,9 @@
-import React from 'react';
-import gun from './data';
-import bind from 'react-gun';
+import * as React from 'react';
+import { gun, bind, SendProps } from 'react-gun';
 import * as helpers from './helpers/gun';
 
 
 (window as any).print = (s: any) => console.log(s);
-
-interface ReactGunBindProps {
-    _root: ChainReference;
-    [key: string]: any;
-}
 
 type ChainReference = typeof gun;
 
@@ -19,11 +13,27 @@ const increment = (node: ChainReference) => (
     () => node.once((val: any = 0) => node.put(val + 1))
 );
 
-const Main: React.FC<ReactGunBindProps> = ({ gun: { counter = 0, _root } }) => (
+class ClassComponent extends React.Component<SendProps> {
+
+    boundProps = ['counter'];
+
+    render() {
+        const { _root, state: { counter = 0 } } = this.props;
+        return (
+            <p>
+                <button onClick={increment(_root.get('counter'))}>Increment</button>
+                <span>{counter}</span>
+            </p>
+        );
+    }
+}
+
+const FunctionalComponent: React.FC<SendProps> = ({ _root, state: { counter = 0 } }) => (
     <p>
         <button onClick={increment(_root.get('counter'))}>Increment</button>
         <span>{counter}</span>
     </p>
 );
 
-export default bind(gun.get('counter/1'))(Main);
+export const Main1 = bind('counter/1')(FunctionalComponent);
+export const Main2 = bind('counter/2')(ClassComponent);
