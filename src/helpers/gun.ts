@@ -1,4 +1,4 @@
-import gun from '../data';
+import { gun } from 'react-gun';
 
 export const asList = (thing: any[]) => {
   if (!Array.isArray(thing)) {
