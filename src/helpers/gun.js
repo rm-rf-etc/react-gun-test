@@ -1,6 +1,8 @@
-import { gun } from 'react-gun';
+import { getData } from 'react-gun';
 
-export const asList = (thing: any[]) => {
+const gun = getData('@pp');
+
+export const asList = (thing) => {
   if (!Array.isArray(thing)) {
     throw new Error(`\`asList\` takes only array type as input. Received ${typeof thing} instead.`);
   }
@@ -9,9 +11,9 @@ export const asList = (thing: any[]) => {
 
 export const fromList = Object.values;
 
-export const dbAppend = (parentId: string, childId: string) => {
+export const dbAppend = (parentId, childId) => {
   const parent = fromPath(parentId);
-  parent.open((data: any) => {
+  parent.open((data) => {
     if (fromList(data.order).length) {
       const newList = asList(fromList(data.order).concat(childId));
       parent.get('items').put(newList);
@@ -19,13 +21,20 @@ export const dbAppend = (parentId: string, childId: string) => {
   })
 };
 
-export const fromPath = (pathStr: string) => {
+export const fromPath = (pathStr) => {
   if (!pathStr.includes('.')) {
-    return (gun.get as any)(pathStr);
+    return gun.get(pathStr);
   }
   const [parent, ...keys] = pathStr.split('.');
-  return keys.reduce((curr, next) => curr.get(next), (gun.get as any)(parent));
+
+  return keys.reduce((curr, next) => curr.get(next), gun.get(parent));
 };
 
-(window as any).dbAppend = dbAppend;
-(window as any).fromPath = fromPath;
+Object.entries({
+  dbAppend,
+  fromPath,
+  fromList,
+  asList,
+}).forEach(([key, value]) => {
+  window[key] = value;
+});

@@ -1,0 +1,12 @@
+p {
+	margin: 0;
+}
+button {
+	display: block;
+	width: 100px;
+}
+.col {
+	display: inline-block;
+	width: 150px;
+	vertical-align: top;
+}
