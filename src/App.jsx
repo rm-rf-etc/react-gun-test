@@ -17,8 +17,10 @@ class ClassComponent extends Component {
     static boundProps = ['counter'];
 
     render() {
-        const { counter = 0 } = this.props.state;
-        const { put } = this.props.methods;
+		const {
+			'@state': { counter = 0 },
+			'@methods': { put },
+		} = this.props;
 
         return (
 			<>
@@ -37,8 +39,8 @@ class ClassComponent extends Component {
 }
 
 const FunctionalComponent = ({
-        state: { counter = 0 },
-        methods: { put },
+        '@state': { counter = 0 },
+        '@methods': { put },
     }) => (
 	<>
 		<div className="col">
